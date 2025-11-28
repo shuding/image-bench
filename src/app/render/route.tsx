@@ -42,21 +42,17 @@ export async function GET(request: Request) {
 
   const start = performance.now();
 
-  const buffer = await providers[provider](
-    template,
-    width,
-    height,
-  ).arrayBuffer();
+  const response = providers[provider](template, width, height);
+  const headers = response.headers;
+
+  const buffer = await response.arrayBuffer();
 
   const end = performance.now();
 
-  return new Response(buffer, {
-    headers: {
-      "Content-Type": "image/png",
-      "X-Duration": nstr(end - start, { maxDecimals: 1 }),
-      "X-provider": provider,
-    },
-  });
+  headers.set("X-Duration", nstr(end - start, { maxDecimals: 1 }));
+  headers.set("X-provider", provider);
+
+  return new Response(buffer, { headers });
 }
 
 function takumiProvider(
