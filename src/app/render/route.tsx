@@ -4,6 +4,7 @@ import nstr from "nstr";
 import { createElement } from "react";
 import { objectKeys } from "ts-extras";
 import * as z from "zod/mini";
+import { Gradients } from "~/lib/templates/gradients";
 import { HelloWorld } from "~/lib/templates/hello-world";
 import { Rauchg } from "~/lib/templates/rauchg";
 import { Tailwind } from "~/lib/templates/tailwind";
@@ -22,6 +23,7 @@ const templates = {
   vercel: Vercel,
   tailwind: Tailwind,
   rauchg: Rauchg,
+  gradients: Gradients
 } as const;
 
 const paramsSchema = z.object({

@@ -35,4 +35,5 @@ export const templates = {
   vercel: "Vercel",
   rauchg: "rauchg",
   tailwind: "Tailwind",
+  gradients: "Gradients",
 } as const;
