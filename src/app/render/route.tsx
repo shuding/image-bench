@@ -23,7 +23,7 @@ const templates = {
   vercel: Vercel,
   tailwind: Tailwind,
   rauchg: Rauchg,
-  gradients: Gradients
+  gradients: Gradients,
 } as const;
 
 const paramsSchema = z.object({
@@ -65,6 +65,7 @@ function takumiProvider(
   return new ImageResponse(createElement(templates[template]), {
     width,
     height,
+    format: "png",
   });
 }
 
