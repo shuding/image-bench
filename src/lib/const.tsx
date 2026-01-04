@@ -36,4 +36,5 @@ export const templates = {
   rauchg: "rauchg",
   tailwind: "Tailwind",
   gradients: "Gradients",
+  docs: "Docs",
 } as const;
