@@ -28,6 +28,28 @@ export const providers = {
     ),
     url: "https://takumi.kane.tw/docs",
   },
+  "takumi-wasm": {
+    title: (
+      <span>
+        Takumi{" "}
+        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
+          WASM
+        </span>
+      </span>
+    ),
+    url: "https://takumi.kane.tw/docs",
+  },
+  "takumi-wasm-webp": {
+    title: (
+      <span>
+        Takumi{" "}
+        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
+          WASM WebP
+        </span>
+      </span>
+    ),
+    url: "https://takumi.kane.tw/docs",
+  },
 } as const;
 
 export const templates = {

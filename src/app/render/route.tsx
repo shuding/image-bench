@@ -1,4 +1,6 @@
 import ImageResponse from "@takumi-rs/image-response";
+import ImageResponseWasm from "@takumi-rs/image-response/wasm";
+import module from "@takumi-rs/wasm/next";
 import { ImageResponse as NextOgImageResponse } from "next/og";
 import nstr from "nstr";
 import { createElement } from "react";
@@ -17,6 +19,8 @@ const providers = {
   takumi: takumiProvider,
   "takumi-webp": takumiWebpProvider,
   "next-og": nextOgProvider,
+  "takumi-wasm": takumiWasmProvider,
+  "takumi-wasm-webp": takumiWasmWebpProvider,
 } as const;
 
 const templates = {
@@ -34,6 +38,21 @@ const paramsSchema = z.object({
   width: z.int().check(z.positive(), z.lte(1920)),
   height: z.int().check(z.positive(), z.lte(1080)),
 });
+
+const fonts = [
+  {
+    name: "Geist",
+    data: await fetch("https://takumi.kane.tw/fonts/Geist.woff2").then((r) =>
+      r.arrayBuffer(),
+    ),
+  },
+  {
+    name: "Geist Mono",
+    data: await fetch("https://takumi.kane.tw/fonts/GeistMono.woff2").then(
+      (r) => r.arrayBuffer(),
+    ),
+  },
+];
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -91,5 +110,33 @@ function nextOgProvider(
   return new NextOgImageResponse(createElement(templates[template]), {
     width,
     height,
+  });
+}
+
+function takumiWasmProvider(
+  template: keyof typeof templates,
+  width: number,
+  height: number,
+) {
+  return new ImageResponseWasm(createElement(templates[template]), {
+    width,
+    height,
+    format: "png",
+    module,
+    fonts,
+  });
+}
+
+function takumiWasmWebpProvider(
+  template: keyof typeof templates,
+  width: number,
+  height: number,
+) {
+  return new ImageResponseWasm(createElement(templates[template]), {
+    width,
+    height,
+    format: "webp",
+    module,
+    fonts,
   });
 }

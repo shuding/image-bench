@@ -75,9 +75,11 @@ export function ImageCard({
 export function ImageCards({ template }: { template: keyof typeof templates }) {
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+      <div className="flex flex-wrap justify-center gap-4 w-full">
         {objectKeys(providers).map((p) => (
-          <ImageCard key={p} provider={p} template={template} />
+          <div key={p} className="w-full max-w-[400px]">
+            <ImageCard provider={p} template={template} />
+          </div>
         ))}
       </div>
       <div className="overflow-x-auto max-w-dvw">
