@@ -12,6 +12,7 @@ export function useImage(
   template: string,
   width: number,
   height: number,
+  refreshKey: number = 0,
 ): ImageData | null {
   const [image, setImage] = useState<ImageData | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -31,7 +32,7 @@ export function useImage(
     (async () => {
       abortControllerRef.current = new AbortController();
 
-      const queryString = imageUrl();
+      const queryString = `${imageUrl()}&_t=${refreshKey}`;
 
       const res = await fetch(`/render?${queryString}`, {
         signal: abortControllerRef.current?.signal,
@@ -66,7 +67,7 @@ export function useImage(
         return null;
       });
     };
-  }, [imageUrl]);
+  }, [imageUrl, refreshKey]);
 
   return image;
 }
