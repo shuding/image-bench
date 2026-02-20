@@ -9,7 +9,6 @@ import { type HistoryEntry, HistoryTable } from "./history-table";
 import { ImageCard } from "./image-card";
 
 let globalHistory: HistoryEntry[] = [];
-let nextHistoryId = 1;
 
 export function ImageCards({ template }: { template: keyof typeof templates }) {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -39,8 +38,10 @@ export function ImageCards({ template }: { template: keyof typeof templates }) {
 
     if (isComplete && recordedRunRef.current !== runKey) {
       setHistory((prev) => {
+        const nextId =
+          prev.length > 0 ? Math.max(...prev.map((e) => e.id)) + 1 : 1;
         const newEntry: HistoryEntry = {
-          id: nextHistoryId++,
+          id: nextId,
           template,
           durations: { ...durations },
         };
@@ -82,28 +83,35 @@ export function ImageCards({ template }: { template: keyof typeof templates }) {
 
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 items-center">
-      <div className="overflow-x-auto w-full flex justify-center">
-        <div className="flex font-mono text-sm border border-border bg-transparent">
-          {objectKeys(templates).map((t) => (
-            <Link
-              key={t}
-              href={`/t/${t}`}
-              className={`px-4 py-2 border-r border-border ${
-                t === template
-                  ? "bg-muted text-foreground"
-                  : "bg-transparent text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-              }`}
+      <div className="sticky top-0 z-20 w-full -mt-4 pt-4 pb-48 -mb-48 pointer-events-none">
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-xl mask-[linear-gradient(to_bottom,black_25%,transparent)]" />
+        <div className="relative w-full pointer-events-auto">
+          <div className="flex font-mono text-sm border border-border bg-background w-full md:w-max mx-auto shadow-lg overflow-hidden">
+            <div className="flex overflow-x-auto flex-1 no-scrollbar">
+              {objectKeys(templates).map((t) => (
+                <Link
+                  key={t}
+                  href={`/t/${t}`}
+                  className={`px-4 py-2 border-r border-border shrink-0 whitespace-nowrap transition-colors ${
+                    t === template
+                      ? "bg-muted text-foreground"
+                      : "bg-transparent text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  }`}
+                >
+                  {templates[t]}
+                </Link>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 cursor-pointer shrink-0 transition-all active:scale-95 group font-bold uppercase tracking-wider text-xs"
+              onClick={handleRefresh}
+              title="Refresh Images"
             >
-              {templates[t]}
-            </Link>
-          ))}
-          <button
-            type="button"
-            className="px-4 py-2 text-muted-foreground hover:bg-muted/50 hover:text-foreground flex items-center justify-center cursor-pointer"
-            onClick={handleRefresh}
-          >
-            <RefreshCcw className="size-4" />
-          </button>
+              <RefreshCcw className="size-3.5 group-active:rotate-180 transition-transform duration-500" />
+              <span className="hidden md:inline">Run</span>
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap justify-center gap-6 w-full">

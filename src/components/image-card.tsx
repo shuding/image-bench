@@ -89,11 +89,11 @@ function ImageCardStat({
   value: React.ReactNode;
 }) {
   return (
-    <div className="p-3 flex flex-col gap-1.5">
-      <span className="text-muted-foreground font-semibold uppercase text-xs tracking-wider">
+    <div className="p-2 sm:p-3 flex flex-col gap-1 sm:gap-1.5 overflow-hidden">
+      <span className="text-muted-foreground font-semibold uppercase text-[10px] sm:text-xs tracking-wider truncate">
         {label}
       </span>
-      <span className="text-sm font-medium">{value}</span>
+      <span className="text-xs sm:text-sm font-medium truncate">{value}</span>
     </div>
   );
 }
