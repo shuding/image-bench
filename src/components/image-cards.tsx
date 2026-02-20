@@ -81,10 +81,34 @@ export function ImageCards({ template }: { template: keyof typeof templates }) {
     }
   }
 
+  const [isSticky, setIsSticky] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the sentinel is NOT intersecting, it means we've scrolled past it
+        setIsSticky(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "0px 0px 0px 0px" },
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 items-center">
+      <div ref={sentinelRef} className="h-px w-full -mb-8" />
       <div className="sticky top-0 z-20 w-full -mt-4 pt-4 pb-48 -mb-48 pointer-events-none">
-        <div className="absolute inset-0 bg-background/40 backdrop-blur-xl mask-[linear-gradient(to_bottom,black_25%,transparent)]" />
+        <div
+          className={`absolute inset-0 bg-background/40 backdrop-blur-xl mask-[linear-gradient(to_bottom,black_25%,transparent)] transition-opacity duration-500 ${
+            isSticky ? "opacity-100" : "opacity-0"
+          }`}
+        />
         <div className="relative w-full pointer-events-auto">
           <div className="flex font-mono text-sm border border-border bg-background w-full md:w-max mx-auto shadow-lg overflow-hidden">
             <div className="flex overflow-x-auto flex-1 no-scrollbar">
