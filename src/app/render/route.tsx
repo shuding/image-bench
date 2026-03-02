@@ -1,7 +1,7 @@
 import ImageResponse from "@takumi-rs/image-response";
 import ImageResponseWasm from "@takumi-rs/image-response/wasm";
 import module from "@takumi-rs/wasm/next";
-import { ImageResponse as VercelImageResponse } from "@vercel/og";
+import { ImageResponse as VercelImageResponse } from "next/og";
 import nstr from "nstr";
 import { createElement } from "react";
 import { objectKeys } from "ts-extras";
