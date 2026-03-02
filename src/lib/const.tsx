@@ -2,12 +2,12 @@ export const defaultWidth = 800;
 export const defaultHeight = 400;
 
 export const providers = {
-  "next-og": {
+  "vercel-og": {
     title: (
       <span>
         @vercel/og{" "}
         <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          (satori + sharp)
+          (satori + resvg)
         </span>
       </span>
     ),

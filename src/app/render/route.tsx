@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 const providers = {
   takumi: takumiProvider,
   "takumi-webp": takumiWebpProvider,
-  "next-og": nextOgProvider,
+  "vercel-og": vercelOgProvider,
   "takumi-wasm": takumiWasmProvider,
   "takumi-wasm-webp": takumiWasmWebpProvider,
 } as const;
@@ -102,7 +102,7 @@ function takumiWebpProvider(
   });
 }
 
-function nextOgProvider(
+function vercelOgProvider(
   template: keyof typeof templates,
   width: number,
   height: number,
