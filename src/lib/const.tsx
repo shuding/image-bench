@@ -5,13 +5,13 @@ export const providers = {
   "next-og": {
     title: (
       <span>
-        next/og{" "}
+        @vercel/og{" "}
         <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          (satori + resvg)
+          (satori + sharp)
         </span>
       </span>
     ),
-    url: "https://nextjs.org/docs/app/api-reference/functions/image-response",
+    url: "https://www.npmjs.com/package/@vercel/og",
   },
   takumi: {
     title: "Takumi",

@@ -1,7 +1,7 @@
 import ImageResponse from "@takumi-rs/image-response";
 import ImageResponseWasm from "@takumi-rs/image-response/wasm";
 import module from "@takumi-rs/wasm/next";
-import { ImageResponse as NextOgImageResponse } from "next/og";
+import { ImageResponse as VercelImageResponse } from "@vercel/og";
 import nstr from "nstr";
 import { createElement } from "react";
 import { objectKeys } from "ts-extras";
@@ -107,7 +107,7 @@ function nextOgProvider(
   width: number,
   height: number,
 ) {
-  return new NextOgImageResponse(createElement(templates[template]), {
+  return new VercelImageResponse(createElement(templates[template]), {
     width,
     height,
   });
