@@ -42,20 +42,38 @@ const paramsSchema = z.object({
   height: z.int().check(z.positive(), z.lte(1080)),
 });
 
-const fonts = [
-  {
-    name: "Geist",
-    data: await fetch("https://takumi.kane.tw/fonts/Geist.woff2").then((r) =>
-      r.arrayBuffer(),
+const fontCdnBaseUrl = "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts";
+const fonts = await Promise.all(
+  [
+    {
+      name: "Geist",
+      filePath: "geist-sans/Geist-Regular.ttf",
+      weight: 400 as const,
+    },
+    {
+      name: "Geist",
+      filePath: "geist-sans/Geist-Bold.ttf",
+      weight: 700 as const,
+    },
+    {
+      name: "Geist Mono",
+      filePath: "geist-mono/GeistMono-Regular.ttf",
+      weight: 400 as const,
+    },
+    {
+      name: "Geist Mono",
+      filePath: "geist-mono/GeistMono-Bold.ttf",
+      weight: 700 as const,
+    },
+  ].map(async ({ name, filePath, weight }) => ({
+    name,
+    data: await fetch(`${fontCdnBaseUrl}/${filePath}`).then((response) =>
+      response.arrayBuffer(),
     ),
-  },
-  {
-    name: "Geist Mono",
-    data: await fetch("https://takumi.kane.tw/fonts/GeistMono.woff2").then(
-      (r) => r.arrayBuffer(),
-    ),
-  },
-];
+    weight,
+    style: "normal" as const,
+  })),
+);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -90,6 +108,7 @@ function takumiProvider(
     width,
     height,
     format: "png",
+    fonts,
   });
 }
 
@@ -103,6 +122,7 @@ function takumiWebp75Provider(
     height,
     format: "webp",
     quality: 75,
+    fonts,
   });
 }
 
@@ -116,6 +136,7 @@ function takumiWebpProvider(
     height,
     format: "webp",
     quality: 100,
+    fonts,
   });
 }
 
@@ -127,6 +148,7 @@ function nextOgProvider(
   return new VercelImageResponse(createElement(templates[template]), {
     width,
     height,
+    fonts,
   });
 }
 
@@ -138,6 +160,7 @@ function vercelOgSharpProvider(
   return new VercelOgSharpImageResponse(createElement(templates[template]), {
     width,
     height,
+    fonts,
   });
 }
 
