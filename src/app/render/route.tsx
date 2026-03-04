@@ -17,6 +17,7 @@ export const dynamic = "force-dynamic";
 
 const providers = {
   takumi: takumiProvider,
+  "takumi-webp-75": takumiWebp75Provider,
   "takumi-webp": takumiWebpProvider,
   "vercel-og": vercelOgProvider,
   "takumi-wasm": takumiWasmProvider,
@@ -90,6 +91,19 @@ function takumiProvider(
   });
 }
 
+function takumiWebp75Provider(
+  template: keyof typeof templates,
+  width: number,
+  height: number,
+) {
+  return new ImageResponse(createElement(templates[template]), {
+    width,
+    height,
+    format: "webp",
+    quality: 75,
+  });
+}
+
 function takumiWebpProvider(
   template: keyof typeof templates,
   width: number,
@@ -99,6 +113,7 @@ function takumiWebpProvider(
     width,
     height,
     format: "webp",
+    quality: 100,
   });
 }
 
