@@ -37,6 +37,12 @@ const templates = {
   docs: Docs,
 } as const;
 
+const headers = {
+  "Cache-Control": "no-store, no-cache, max-age=0, must-revalidate",
+  Pragma: "no-cache",
+  Expires: "0",
+} as const;
+
 const paramsSchema = z.object({
   provider: z.enum(objectKeys(providers)),
   template: z.enum(objectKeys(templates)),
@@ -109,6 +115,7 @@ function takumiProvider(
     width,
     height,
     format: "png",
+    headers,
     fonts,
   });
 }
@@ -123,6 +130,7 @@ function takumiWebp75Provider(
     height,
     format: "webp",
     quality: 75,
+    headers,
     fonts,
   });
 }
@@ -137,6 +145,7 @@ function takumiWebpProvider(
     height,
     format: "webp",
     quality: 100,
+    headers,
     fonts,
   });
 }
@@ -149,6 +158,7 @@ function nextOgProvider(
   return new VercelImageResponse(createElement(templates[template]), {
     width,
     height,
+    headers,
     fonts,
   });
 }
@@ -161,6 +171,7 @@ function vercelOgSharpProvider(
   return new VercelOgSharpImageResponse(createElement(templates[template]), {
     width,
     height,
+    headers,
     fonts,
   });
 }
@@ -175,6 +186,7 @@ function takumiWasmProvider(
     height,
     format: "png",
     module,
+    headers,
     fonts,
   });
 }
@@ -189,6 +201,7 @@ function takumiWasmWebpProvider(
     height,
     format: "webp",
     module,
+    headers,
     fonts,
   });
 }
