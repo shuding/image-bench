@@ -46,7 +46,7 @@ export default function Docs() {
           <span
             style={{
               fontSize: 48,
-              fontWeight: 800,
+              fontWeight: 700,
               lineHeight: 1.1,
               letterSpacing: "-0.04em",
               color: "white",
