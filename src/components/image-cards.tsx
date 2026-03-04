@@ -68,12 +68,28 @@ export function ImageCards({ template }: { template: keyof typeof templates }) {
         </div>
       </div>
 
-      {/* Provider grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-        {objectKeys(providers).map((p) => (
-          <ImageCard key={p} provider={p} template={template} />
-        ))}
-      </div>
+      {/* Provider grid — top 4, bottom 3 */}
+      {(() => {
+        const keys = objectKeys(providers);
+        const top = keys.slice(0, 4);
+        const bottom = keys.slice(4);
+        return (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+              {top.map((p) => (
+                <ImageCard key={p} provider={p} template={template} />
+              ))}
+            </div>
+            {bottom.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full lg:w-3/4 mx-auto">
+                {bottom.map((p) => (
+                  <ImageCard key={p} provider={p} template={template} />
+                ))}
+              </div>
+            )}
+          </>
+        );
+      })()}
 
       {/* History */}
       <HistoryTable />
