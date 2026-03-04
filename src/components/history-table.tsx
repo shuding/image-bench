@@ -1,14 +1,13 @@
+"use client";
+
 import { Crown } from "lucide-react";
 import { objectKeys } from "ts-extras";
+import { useBench } from "~/lib/bench-context";
 import { providers } from "~/lib/const";
 
-export type HistoryEntry = {
-  id: number;
-  template: string;
-  durations: Record<string, number>;
-};
+export function HistoryTable() {
+  const { history } = useBench();
 
-export function HistoryTable({ history }: { history: HistoryEntry[] }) {
   if (history.length === 0) return null;
 
   return (
@@ -26,26 +25,27 @@ export function HistoryTable({ history }: { history: HistoryEntry[] }) {
                   key={p}
                   className="p-3 border-r border-border font-semibold last:border-r-0"
                 >
-                  {providers[p].title} (ms)
+                  <span className="block">{providers[p].name}</span>
+                  <span className="block font-normal text-muted-foreground normal-case tracking-normal">
+                    {providers[p].format}
+                  </span>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {history.map((entry) => {
-              let minDuration = Infinity;
-              let fastestProvider: string | null = null;
               const allProviders = objectKeys(providers);
               const isComplete =
                 Object.keys(entry.durations).length === allProviders.length;
 
+              let fastestProvider: string | null = null;
               if (isComplete) {
-                for (const [provider, duration] of Object.entries(
-                  entry.durations,
-                )) {
-                  if (duration < minDuration) {
-                    minDuration = duration;
-                    fastestProvider = provider;
+                let min = Infinity;
+                for (const [p, d] of Object.entries(entry.durations)) {
+                  if (d < min) {
+                    min = d;
+                    fastestProvider = p;
                   }
                 }
               }
@@ -63,7 +63,6 @@ export function HistoryTable({ history }: { history: HistoryEntry[] }) {
                   </td>
                   {allProviders.map((p) => {
                     const duration = entry.durations[p as string];
-                    const isFastest = p === fastestProvider;
                     return (
                       <td
                         key={p}
@@ -72,12 +71,12 @@ export function HistoryTable({ history }: { history: HistoryEntry[] }) {
                         {duration ? (
                           <span className="inline-flex items-center gap-2">
                             {duration.toFixed(1)}
-                            {isFastest && (
+                            {p === fastestProvider && (
                               <Crown className="size-3 text-yellow-500 fill-yellow-500" />
                             )}
                           </span>
                         ) : (
-                          <span className="text-muted-foreground">-</span>
+                          <span className="text-muted-foreground">—</span>
                         )}
                       </td>
                     );

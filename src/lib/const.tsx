@@ -1,78 +1,68 @@
 export const defaultWidth = 800;
 export const defaultHeight = 400;
 
+export type ImageFormat = "PNG" | "WebP Lossy 75%" | "WebP Lossless";
+export type ProviderEngine =
+  | "Satori + Resvg"
+  | "Satori + Sharp"
+  | "Takumi Native"
+  | "Takumi WASM";
+
+export type ProviderMeta = {
+  /** Short display name of the library */
+  name: string;
+  /** URL to the library's documentation */
+  url: string;
+  /** Rendering engine used under the hood */
+  engine: ProviderEngine;
+  /** Output format of the generated image */
+  format: ImageFormat;
+};
+
 export const providers = {
   "next-og": {
-    title: (
-      <span>
-        next/og{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          (satori + resvg)
-        </span>
-      </span>
-    ),
+    name: "next/og",
     url: "https://www.npmjs.com/package/@vercel/og",
+    engine: "Satori + Resvg",
+    format: "PNG",
   },
   "vercel-og-sharp": {
-    title: (
-      <span>
-        @vercel/og{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          (satori + sharp)
-        </span>
-      </span>
-    ),
+    name: "@vercel/og",
     url: "https://www.npmjs.com/package/@vercel/og",
+    engine: "Satori + Sharp",
+    format: "PNG",
   },
   takumi: {
-    title: "Takumi",
+    name: "Takumi",
     url: "https://takumi.kane.tw/docs",
+    engine: "Takumi Native",
+    format: "PNG",
   },
   "takumi-webp-75": {
-    title: (
-      <span>
-        Takumi{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          WebP Lossy 75%
-        </span>
-      </span>
-    ),
+    name: "Takumi",
     url: "https://takumi.kane.tw/docs",
+    engine: "Takumi Native",
+    format: "WebP Lossy 75%",
   },
   "takumi-webp": {
-    title: (
-      <span>
-        Takumi{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          WebP Lossless
-        </span>
-      </span>
-    ),
+    name: "Takumi",
     url: "https://takumi.kane.tw/docs",
+    engine: "Takumi Native",
+    format: "WebP Lossless",
   },
   "takumi-wasm": {
-    title: (
-      <span>
-        Takumi{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          WASM
-        </span>
-      </span>
-    ),
+    name: "Takumi",
     url: "https://takumi.kane.tw/docs",
+    engine: "Takumi WASM",
+    format: "PNG",
   },
   "takumi-wasm-webp": {
-    title: (
-      <span>
-        Takumi{" "}
-        <span className="text-xs sm:text-sm text-muted-foreground font-medium">
-          WASM WebP
-        </span>
-      </span>
-    ),
+    name: "Takumi",
     url: "https://takumi.kane.tw/docs",
+    engine: "Takumi WASM",
+    format: "WebP Lossless",
   },
-} as const;
+} as const satisfies Record<string, ProviderMeta>;
 
 export const templates = {
   "hello-world": "Hello World",
