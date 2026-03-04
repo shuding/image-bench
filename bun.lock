@@ -10,6 +10,7 @@
         "@takumi-rs/image-response": "^0.70.3",
         "@takumi-rs/wasm": "^0.70.3",
         "@vercel/og": "^0.10.0",
+        "@vercel/og-sharp": "npm:@vercel/og@^0.10.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "geist": "^1.7.0",
@@ -211,6 +212,8 @@
     "@types/react-dom": ["@types/react-dom@19.2.3", "", { "peerDependencies": { "@types/react": "^19.2.0" } }, "sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ=="],
 
     "@vercel/og": ["@vercel/og@0.10.0", "", { "dependencies": { "@resvg/resvg-wasm": "2.4.0", "satori": "0.21.0" }, "optionalDependencies": { "sharp": "^0.34.5" } }, "sha512-K4A/TQoIyIPmdQXj4nJqa8zzUnXg1SaJg4AsT59rsKMiXEFYFJPT3jMtt6cXzc7rxHA/6Q9I0GXH8M0NqxDwHA=="],
+
+    "@vercel/og-sharp": ["@vercel/og@0.10.1", "", { "dependencies": { "@resvg/resvg-wasm": "2.4.0", "satori": "0.21.0" }, "optionalDependencies": { "sharp": "^0.34.5" } }, "sha512-Ilhy0kQyTkeQsk3kAi4NrKzWxwaItHqIHlROrtZGscUGuqvE1N5gib0bPlr06NJdnxlBsDo7J169N7XKf4M19A=="],
 
     "base64-js": ["base64-js@0.0.8", "", {}, "sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw=="],
 
