@@ -2,6 +2,7 @@ import ImageResponse from "@takumi-rs/image-response";
 import ImageResponseWasm from "@takumi-rs/image-response/wasm";
 import module from "@takumi-rs/wasm/next";
 import { ImageResponse as VercelImageResponse } from "next/og";
+import { ImageResponse as VercelOgSharpImageResponse } from "@vercel/og-sharp"
 import nstr from "nstr";
 import { createElement } from "react";
 import { objectKeys } from "ts-extras";
@@ -20,6 +21,7 @@ const providers = {
   "takumi-webp-75": takumiWebp75Provider,
   "takumi-webp": takumiWebpProvider,
   "vercel-og": vercelOgProvider,
+  "vercel-og-sharp": vercelOgSharpProvider,
   "takumi-wasm": takumiWasmProvider,
   "takumi-wasm-webp": takumiWasmWebpProvider,
 } as const;
@@ -123,6 +125,17 @@ function vercelOgProvider(
   height: number,
 ) {
   return new VercelImageResponse(createElement(templates[template]), {
+    width,
+    height,
+  });
+}
+
+function vercelOgSharpProvider(
+  template: keyof typeof templates,
+  width: number,
+  height: number,
+) {
+  return new VercelOgSharpImageResponse(createElement(templates[template]), {
     width,
     height,
   });
