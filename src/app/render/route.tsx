@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import ImageResponse from "@takumi-rs/image-response";
 import ImageResponseWasm from "@takumi-rs/image-response/wasm";
 import module from "@takumi-rs/wasm/next";
@@ -42,33 +44,32 @@ const paramsSchema = z.object({
   height: z.int().check(z.positive(), z.lte(1080)),
 });
 
-const fontCdnBaseUrl = "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts";
 const fonts = await Promise.all(
   [
     {
       name: "Geist",
-      filePath: "geist-sans/Geist-Regular.ttf",
+      fileName: "Geist-Regular.ttf",
       weight: 400 as const,
     },
     {
       name: "Geist",
-      filePath: "geist-sans/Geist-Bold.ttf",
+      fileName: "Geist-Bold.ttf",
       weight: 700 as const,
     },
     {
       name: "Geist Mono",
-      filePath: "geist-mono/GeistMono-Regular.ttf",
+      fileName: "GeistMono-Regular.ttf",
       weight: 400 as const,
     },
     {
       name: "Geist Mono",
-      filePath: "geist-mono/GeistMono-Bold.ttf",
+      fileName: "GeistMono-Bold.ttf",
       weight: 700 as const,
     },
-  ].map(async ({ name, filePath, weight }) => ({
+  ].map(async ({ name, fileName, weight }) => ({
     name,
-    data: await fetch(`${fontCdnBaseUrl}/${filePath}`).then((response) =>
-      response.arrayBuffer(),
+    data: await readFile(
+      join(process.cwd(), "public", "fonts", "geist", fileName),
     ),
     weight,
     style: "normal" as const,
