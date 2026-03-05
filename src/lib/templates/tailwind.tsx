@@ -11,7 +11,7 @@ export function Tailwind() {
             <div tw="flex rounded-md shadow">
               <a
                 href="https://tailwindcss.com/docs/installation"
-                tw="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white"
+                tw="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base text-white"
               >
                 Get started
               </a>
@@ -19,7 +19,7 @@ export function Tailwind() {
             <div tw="ml-3 flex rounded-md shadow">
               <a
                 href="https://tailwindcss.com/docs/installation"
-                tw="flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-indigo-600"
+                tw="flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base text-indigo-600"
               >
                 Learn more
               </a>
