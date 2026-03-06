@@ -71,4 +71,7 @@ export const templates = {
   tailwind: "Tailwind",
   gradients: "Gradients",
   docs: "Docs",
+  ecommerce: "Ecommerce",
+  social: "Social Post",
+  analytics: "Analytics Dashboard",
 } as const;

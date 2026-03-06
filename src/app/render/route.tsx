@@ -15,6 +15,9 @@ import { HelloWorld } from "~/lib/templates/hello-world";
 import { Rauchg } from "~/lib/templates/rauchg";
 import { Tailwind } from "~/lib/templates/tailwind";
 import { Vercel } from "~/lib/templates/vercel";
+import { Ecommerce } from "~/lib/templates/ecommerce";
+import { SocialPost } from "~/lib/templates/social";
+import { AnalyticsDashboard } from "~/lib/templates/analytics";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +38,9 @@ export const templates = {
   rauchg: Rauchg,
   gradients: Gradients,
   docs: Docs,
+  ecommerce: Ecommerce,
+  social: SocialPost,
+  analytics: AnalyticsDashboard,
 } as const;
 
 const headers = {
