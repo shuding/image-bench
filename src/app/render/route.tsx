@@ -18,7 +18,7 @@ import { Vercel } from "~/lib/templates/vercel";
 
 export const dynamic = "force-dynamic";
 
-const providers = {
+export const providers = {
   takumi: takumiProvider,
   "takumi-webp-75": takumiWebp75Provider,
   "takumi-webp": takumiWebpProvider,
@@ -28,7 +28,7 @@ const providers = {
   "takumi-wasm-webp": takumiWasmWebpProvider,
 } as const;
 
-const templates = {
+export const templates = {
   "hello-world": HelloWorld,
   vercel: Vercel,
   tailwind: Tailwind,
